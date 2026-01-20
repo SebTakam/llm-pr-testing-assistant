@@ -1,7 +1,7 @@
 # AI Test Planning GitHub Workflow
 
-This repository an AI-assisted,
-human-approved test planning pipeline to any project.
+This repository is an AI-assisted,
+human-approved test planning pipeline.
 
 ## What this does
 
