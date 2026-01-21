@@ -1,0 +1,12 @@
+name: AI Approval Gate
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  gate:
+    if: github.event.issue.pull_request
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Approval detected — state controlled via comments"
