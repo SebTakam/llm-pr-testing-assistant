@@ -1,0 +1,31 @@
+name: AI Test Structure
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  pull-requests: write
+  contents: read
+
+jobs:
+  structure:
+    if: contains(github.event.comment.body, 'APPROVED_PLAN')
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate test structure
+        run: python scripts/call_llm.py structure
+        env:
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+
+      - name: Validate schema
+        run: python scripts/validate_schema.py artifacts/test_structure.json schemas/test_structure.schema.json
+
+      - name: Post for approval
+        run: python scripts/post_comment.py structure
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.issue.number }}
