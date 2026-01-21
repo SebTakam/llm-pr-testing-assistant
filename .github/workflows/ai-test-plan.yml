@@ -1,0 +1,32 @@
+name: AI Test Plan
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+permissions:
+  pull-requests: write
+  contents: read
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Collect context
+        run: python scripts/collect_context.py
+
+      - name: Generate test plan
+        run: python scripts/call_llm.py plan
+        env:
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+
+      - name: Validate schema
+        run: python scripts/validate_schema.py artifacts/test_plan.json schemas/test_plan.schema.json
+
+      - name: Post for review
+        run: python scripts/post_comment.py plan
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
