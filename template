@@ -1,0 +1,22 @@
+ai-test-workflow-template/
+├── .github/
+│   └── workflows/
+│       ├── ai-test-plan.yml
+│       ├── ai-test-structure.yml
+│       └── ai-approval-gate.yml
+├── prompts/
+│   ├── test_plan.prompt.md
+│   └── test_structure.prompt.md
+├── schemas/
+│   ├── test_plan.schema.json
+│   └── test_structure.schema.json
+├── scripts/
+│   ├── collect_context.py
+│   ├── call_llm.py
+│   ├── validate_schema.py
+│   └── post_comment.py
+├── artifacts/
+│   └── .gitkeep
+├── LOCAL_LLM_HANDOFF.md
+└── README.md
+
