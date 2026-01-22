@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "required": [
+    "test_goals",
+    "risk_areas",
+    "test_types",
+    "out_of_scope",
+    "questions_for_human"
+  ],
+  "properties": {
+    "test_goals": { "type": "array", "items": { "type": "string" } },
+    "risk_areas": { "type": "array", "items": { "type": "string" } },
+    "test_types": { "type": "array", "items": { "type": "string" } },
+    "out_of_scope": { "type": "array", "items": { "type": "string" } },
+    "questions_for_human": { "type": "array", "items": { "type": "string" } }
+  }
+}
