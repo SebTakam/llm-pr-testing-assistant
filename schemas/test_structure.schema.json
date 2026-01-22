@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "required": ["test_files"],
+  "properties": {
+    "test_files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "description", "test_cases"],
+        "properties": {
+          "path": { "type": "string" },
+          "description": { "type": "string" },
+          "test_cases": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}
