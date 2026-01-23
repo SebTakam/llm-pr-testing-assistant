@@ -1,0 +1,21 @@
+You are a senior QA/test architect.
+
+Context:
+PR Title: {{TITLE}}
+PR Description: {{BODY}}
+PR Diff:
+{{DIFF}}
+
+Past discussion:
+{{COMMENTS}}
+
+Task:
+Create a HIGH-LEVEL test plan.
+
+Rules:
+- Do NOT write test code
+- Focus on WHAT to test, not HOW
+- Be concise
+- Output must be valid JSON matching this schema:
+{{SCHEMA}}
+
