@@ -2,31 +2,48 @@ name: AI Test Plan
 
 on:
   pull_request:
-    types: [opened, edited, synchronize]
+    types: [opened, synchronize, reopened]
+  issue_comment:
+    types: [created]
 
 permissions:
   pull-requests: write
   contents: read
+  issues: write
 
-jobs:
-  plan:
+
+
+jobs: 
+  plan-tests:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
-      - name: Collect context
-        run: python scripts/collect_context.py
+      - name: Install tools
+        run: |
+          sudo apt-get install -y jq
 
-      - name: Generate test plan
-        run: python scripts/call_llm.py plan
-        env:
-          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+      - name: Get PR metadata
+        id: pr
+        run: |
+          echo "number=${{ github.event.pull_request.number }}" >> $GITHUB_OUTPUT
+          echo "title=${{ github.event.pull_request.title }}" >> $GITHUB_OUTPUT
+          echo "body=${{ github.event.pull_request.body }}" >> $GITHUB_OUTPUT
 
-      - name: Validate schema
-        run: python scripts/validate_schema.py artifacts/test_plan.json schemas/test_plan.schema.json
-
-      - name: Post for review
-        run: python scripts/post_comment.py plan
+      - name: Get PR diff
+        id: diff
+        run: |
+          gh pr diff ${{ github.event.pull_request.number }} > pr.diff
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
+
+      - name: Get PR comments
+        run: |
+          gh pr view ${{ github.event.pull_request.number }} \
+            --json comments \
+            --jq '.comments[].body' > comments.txt
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
