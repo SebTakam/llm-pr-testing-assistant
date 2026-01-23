@@ -1,0 +1,11 @@
+Structured output example:
+
+{
+  "test_files": [
+    {
+      "path": "tests/api/test_user_flow.py",
+      "description": "Covers user creation and updates",
+      "test_cases": []
+    }
+  ]
+}
