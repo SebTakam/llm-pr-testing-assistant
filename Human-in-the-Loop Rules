@@ -1,0 +1,9 @@
+
+| Command              | Effect                             |
+| -------------------- | ---------------------------------- |
+| `APPROVED_PLAN`      | Triggers test structure generation |
+| `APPROVED_STRUCTURE` | Freezes AI work                    |
+| `REVISE_PLAN:`       | Forces regeneration with feedback  |
+| `REVISE_STRUCTURE:`  | Same for structure                 |
+
+💡 No approval → no progress
