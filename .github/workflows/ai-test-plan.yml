@@ -58,6 +58,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         if: contains(github.event.comment.body, 'APPROVED_PLAN')
+        
+        gh pr comment ... "Please approve with `APPROVED_STRUCTURE`"
+
 
 
 
