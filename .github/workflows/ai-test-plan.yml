@@ -57,6 +57,8 @@ jobs:
             --body "### 🤖 AI Test Plan\n\`\`\`json\n$(cat test_plan.json)\n\`\`\`\n\n**Please review and comment with feedback or `APPROVED_PLAN`.**"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: contains(github.event.comment.body, 'APPROVED_PLAN')
+
 
 
 
