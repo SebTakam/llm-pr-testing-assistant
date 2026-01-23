@@ -46,4 +46,18 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Call LLM for test plan
+        run: python scripts/llm_plan.py
+        env:
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+
+      - name: Post test plan
+        run: |
+          gh pr comment ${{ github.event.pull_request.number }} \
+            --body "### 🤖 AI Test Plan\n\`\`\`json\n$(cat test_plan.json)\n\`\`\`\n\n**Please review and comment with feedback or `APPROVED_PLAN`.**"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+
 
